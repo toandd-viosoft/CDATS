@@ -40,7 +40,7 @@ import errno
 
 from dats.prox import prox
 import dats.config as config
-
+import dats.display as display
 
 def ssh(user, ip, cmd):
     """Execute ssh command"""
@@ -214,7 +214,7 @@ class remote_system:
     def run_prox_with_config(self, configfile, prox_args, sysname="system"):
         """Run prox on the remote system with the given config file"""
         logging.debug("Setting up PROX to run with args '%s' and config file %s", prox_args, configfile)
-
+        self._sysname = sysname
         # Take config files from subdir prox-configs/ in test script directory
         conf_localpath = path.join(config.getArg('tests_dir'), 'prox-configs', configfile)
         if not path.isfile(conf_localpath):

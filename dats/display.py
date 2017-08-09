@@ -34,10 +34,10 @@
 import libtmux
 import os
 
-session_name="Crucio"
+session_name="NFVi"
 server=""
 session=""
-window="CrucioBaremetal"
+window="NFViMarks"
 sutPanel= None
 testerPanel= None
 controllerPanel = None
@@ -46,7 +46,7 @@ def attachDashboard():
     global  testerPanel 
     global  controllerPanel
     server = libtmux.Server()
-    session = server.find_where({ "session_name": "Crucio" })
+    session = server.find_where({ "session_name": "NFVi" })
     #attach to window
     window_base_index = int(session.attached_window.get('window_index'))
     window = session.select_window(window_base_index)
