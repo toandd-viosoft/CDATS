@@ -1,0 +1,10 @@
+session_name: NFVi
+windows:
+- window_name: NFViMarks
+  layout: tiled
+  panes:
+    - shell_command:           # pane no. 1
+        - echo ""    
+    - shell_command:           # pane no. 2
+        - echo ""    
+    - echo ""  

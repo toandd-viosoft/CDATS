@@ -1,0 +1,2 @@
+pkill -9 tmux
+tmuxp load layout.yaml
