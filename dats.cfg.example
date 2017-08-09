@@ -1,0 +1,119 @@
+;
+; Dataplane Automated Testing System
+;
+; Copyright (c) 2015-2016, Intel Corporation.
+; All rights reserved.
+;
+; Redistribution and use in source and binary forms, with or without
+; modification, are permitted provided that the following conditions
+; are met:
+;
+;   * Redistributions of source code must retain the above copyright
+;     notice, this list of conditions and the following disclaimer.
+;   * Redistributions in binary form must reproduce the above copyright
+;     notice, this list of conditions and the following disclaimer in
+;     the documentation and/or other materials provided with the
+;     distribution.
+;   * Neither the name of Intel Corporation nor the names of its
+;     contributors may be used to endorse or promote products derived
+;     from this software without specific prior written permission.
+;
+; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+; "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+; LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+; A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+; OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+; SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+; LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+; DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+; THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+;
+
+[general]
+; Which packet sizes to use when testing. Tests are run for each
+; packet size in turn.
+; Default value: 64,128,256,512,1024,1280,1518
+;pkt_sizes=64,128,256,512,1024,1280,1518
+
+; Total number of ports to test
+; Default value: 4
+;number_of_ports=4
+number_of_ports=2
+
+; Which tests to run. This can be overridden by specifying test names
+; on the command line.
+; Default value: all tests in the tests/ directory.
+;tests=01_port_fwd,101_bng
+
+; This setting specifies the percentage of packets sent by the Tester that can
+; be tolerated to be lost, instead of being properly forwarded by the SUT.
+; Note: Although the % symbol must not be provided here, the supplied value is a
+; percentage: a value of 0.001 means 0.001%, that is 1 packet is tolerated to be
+; lost out of 100,000 packets sent by the Tester to the SUT.
+; Default value: 0.0
+;tolerated_loss = 0.001
+
+; Duration (in seconds) for each trial of the test
+; When test is running it will remain stable for this duration
+; before stopping and analyzing the recieved traffic
+; Default value: 5.0
+;test_duration = 60.0
+
+; Pecision of the measured throughput in percentage of line-rate
+; The binary search algorithm stops when the difference between
+; the min and max bounds are less then this value
+; Default value: 1.0
+;test_precision = 0.1
+
+[logging]
+; Valid values are DEBUG, INFO, WARNING, ERROR, CRITICAL.
+level=INFO
+
+; Default value: dats.log
+;file=dats.log
+
+; See https://docs.python.org/2/library/logging.html#logging.Formatter for an
+; explanation on the log format and datefmt and
+; https://docs.python.org/2/library/logging.html#logrecord-attributes for a list
+; of format attributes.
+;format=%(asctime)-15s %(levelname)-8s %(filename)20s:%(lineno)-3d %(message)s
+;datefmt=
+
+; 0 to append to logfile if it exists already, 1 to overwrite.
+;overwrite=1
+
+
+[tester]
+ip=127.0.0.1
+user=root
+
+; Default value: /root/dpdk
+;rte_sdk=/root/dpdk
+
+; Default value: x86_64-native-linuxapp-gcc
+;rte_target=x86_64-ivshmem-linuxapp-gcc
+
+; Default value: /root/prox
+prox_dir=/root/dppd-PROX-v021
+
+; Default value: 0
+;socket_id = 1
+
+[sut]
+ip=XXX.XXX.XXX.XXX
+user=root
+
+; Default value: /root/dpdk
+;rte_sdk=/root/dpdk
+
+; Default value: x86_64-native-linuxapp-gcc
+;rte_target=x86_64-ivshmem-linuxapp-gcc
+
+; Default value: /root/prox
+prox_dir=/root/dppd-PROX-v021
+
+; Default value: 0
+;socket_id = 1
+
