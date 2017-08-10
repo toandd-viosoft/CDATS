@@ -52,9 +52,8 @@ import dats.test
 from dats.test.base import TestBase
 import dats.rstgen as rst
 
-import dats.display as display
-import libtmux
-import os
+
+
 ### DATS version
 __version__ = "0.33"
 
@@ -182,9 +181,6 @@ def main():
 
     read_configfile(args)
     setup_logging()
-    display.attachDashboard() 
-    display.runCmdOnSutPannel('echo SUT')
-    display.runCmdOnTesterPannel('echo Tester')
 
     logging.debug("Command line arguments: %s", args)
 

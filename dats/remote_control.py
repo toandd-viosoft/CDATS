@@ -40,7 +40,7 @@ import errno
 
 from dats.prox import prox
 import dats.config as config
-import dats.display as display
+
 
 def ssh(user, ip, cmd):
     """Execute ssh command"""
@@ -64,29 +64,7 @@ def ssh_check_quit(obj, user, ip, cmd):
         obj._err = True
         obj._err_str = ret['out']
         exit(-1)
-def remote_prox(obj, sysname,user, ip, cmd):
-    ssh_options = ""
-    ssh_options += "-o StrictHostKeyChecking=no "
-    ssh_options += "-o UserKnownHostsFile=/dev/null "
-    ssh_options += "-o LogLevel=error "
-    prox_cmd = "ssh " + ssh_options + " " + user + "@" + ip + " \"" + cmd + "\""
 
-    if sysname == "SUT":
-      #display.runCmdOnSutPannel(login_cmd)
-      display.runCmdOnSutPannel(prox_cmd)
-    else:
-     #display.runCmdOnTesterPannel(login_cmd)
-      display.runCmdOnTesterPannel(prox_cmd)
-
-def remote_prox1(obj, sysname,namuser, ip, cmd):
-    #Login to destination
-    login_cmd = "ssh "  + namuser + "@" + ip
-    if sysname == "SUT":
-      display.runCmdOnSutPannel(login_cmd)
-      display.runCmdOnSutPannel(cmd)
-    else:
-      #display.runCmdOnTesterPannel(login_cmd)
-      display.runCmdOnTesterPannel(cmd)
 class remote_system:
     def __init__(self, user, ip, dpdk_dir, dpdk_target, prox_dir):
         self._ip          = ip
@@ -97,7 +75,6 @@ class remote_system:
         self._dpdk_bind_script = self._dpdk_dir + "/tools/dpdk_nic_bind.py"
         self._err = False
         self._err_str = None
-        self._sysname = None
 
     def run_cmd(self, cmd):
         """Execute command over ssh"""
@@ -190,8 +167,7 @@ class remote_system:
             + "./build/prox " + prox_args
         self._err = False
         logging.debug("Starting PROX with command [%s]", prox_cmd)
-        #thread.start_new_thread(ssh_check_quit, (self, self._user, self._ip, prox_cmd))
-        thread.start_new_thread(remote_prox, (self, self._sysname, self._user, self._ip, prox_cmd))
+        thread.start_new_thread(ssh_check_quit, (self, self._user, self._ip, prox_cmd))
         prox = None
         logging.debug("Waiting for PROX to settle")
         
@@ -214,7 +190,7 @@ class remote_system:
     def run_prox_with_config(self, configfile, prox_args, sysname="system"):
         """Run prox on the remote system with the given config file"""
         logging.debug("Setting up PROX to run with args '%s' and config file %s", prox_args, configfile)
-        self._sysname = sysname
+
         # Take config files from subdir prox-configs/ in test script directory
         conf_localpath = path.join(config.getArg('tests_dir'), 'prox-configs', configfile)
         if not path.isfile(conf_localpath):

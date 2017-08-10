@@ -66,8 +66,8 @@ class ForwardPacketsNoTouch(dats.test.binsearchwlatency.BinarySearchWithLatency)
         self._tester_cpu_map = self.get_remote('tester').get_cpu_topology()
         self.get_remote('tester').copy_extra_config("parameters.lua")
         self.get_remote('sut').copy_extra_config("parameters.lua")
-        self._tester = self.get_remote('tester').run_prox_with_config("gen_all-" + self._n_ports + ".cfg", "-e -t", "Tester")
-        self._sut = self.get_remote('sut').run_prox_with_config("handle_none-" + self._n_ports + ".cfg", "-t", "SUT")
+        self._tester = self.get_remote('tester').run_prox_with_config("gen_all-" + str(self._n_ports) + ".cfg", "-e -t", "Tester")
+        self._sut = self.get_remote('sut').run_prox_with_config("handle_none-" + str(self._n_ports) + ".cfg", "-t", "SUT")
 
     def teardown_class(self):
         pass
