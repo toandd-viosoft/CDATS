@@ -70,12 +70,12 @@ class FiveTupleLookup(dats.test.binsearch.BinarySearch):
         self._tester_cpu_map = self.get_remote('tester').get_cpu_topology()
         self.get_remote('tester').copy_extra_config("parameters.lua")
         self.get_remote('sut').copy_extra_config("parameters.lua")
-        self._tester = self.get_remote('tester').run_prox_with_config("gen_5tuplookup-4.cfg", "-e -t", "Tester")
+        self._tester = self.get_remote('tester').run_prox_with_config("gen_5tuplookup-2.cfg", "-e -t", "Tester")
 
         self._sut = self.get_remote('sut')
         self._sut.copy_extra_config("tuples.lua")
 
-        self._sut.run_prox_with_config("handle_5tuplookup-4.cfg", "-t", "SUT")
+        self._sut.run_prox_with_config("handle_5tuplookup-2.cfg", "-t", "SUT")
 
     def teardown_class(self):
         pass
